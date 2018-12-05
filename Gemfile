@@ -67,3 +67,6 @@ group :development, :test do
   gem 'pry-doc'
 end
 
+gem 'haml-rails'
+gem 'erb2haml'
+
