@@ -1,0 +1,13 @@
+p, a, h1, h2, label {
+    font-family: $text_font;
+    font-weight: lighter;
+    color: $dark;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+#content_wrapper {
+    margin: 70px;
+}

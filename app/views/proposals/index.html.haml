@@ -11,4 +11,5 @@
         %td= link_to 'Edit', edit_proposal_path(proposal)
         %td= link_to 'Destroy', proposal, method: :delete, data: { confirm: 'Are you sure?' }
 %br/
-= link_to 'New Proposal', new_proposal_path
+.new_btn
+  = link_to '席をシェアする', new_proposal_path
