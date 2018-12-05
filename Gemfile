@@ -72,3 +72,6 @@ gem 'erb2haml'
 
 gem "jquery-rails"
 
+# .env から環境変数を読み込み
+gem 'dotenv-rails', require: 'dotenv/rails-now'
+
