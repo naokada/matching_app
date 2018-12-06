@@ -1,5 +1,6 @@
 class ProposalsController < ApplicationController
   before_action :set_proposal, only: [:show, :edit, :update, :destroy]
+  before_action :set_env, only: [:new, :create, :index, :show, :edit, :update]
 
   # GET /proposals
   # GET /proposals.json
@@ -14,6 +15,7 @@ class ProposalsController < ApplicationController
 
   # GET /proposals/new
   def new
+    # gon.maps_api = ENV['MAPS_KEY']
     @proposal = Proposal.new
   end
 
@@ -70,5 +72,10 @@ class ProposalsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def proposal_params
       params.fetch(:proposal, {})
+    end
+
+    def set_env
+      gon.maps_api = ENV['MAPS_KEY']
+      headers['Access-Control-Allow-Origin'] = 'https://maps.googleapis.com/*'
     end
 end

@@ -73,5 +73,10 @@ gem 'erb2haml'
 gem "jquery-rails"
 
 # .env から環境変数を読み込み
-gem 'dotenv-rails', require: 'dotenv/rails-now'
+gem 'dotenv-rails'
 
+# Send variables to JS
+gem 'gon'
+
+# Protect from invalid access
+gem 'rack-cors', require: 'rack/cors'
