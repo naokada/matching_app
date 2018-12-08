@@ -2,6 +2,8 @@
   %label お店を検索する
   %input(type="text" placeholder="お店の名前" id="store_search__input")/
 
+#store_list.flex
+
 = form_with(model: proposal, local: true) do |form|
   - if proposal.errors.any?
     #error_explanation

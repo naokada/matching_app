@@ -17,7 +17,7 @@ module MatchingApp
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
+        origins /https:\/\/maps.googleapis.com\/maps\/.*/
         resource '*', headers: :any, methods: [:get, :post, :options]
       end
     end

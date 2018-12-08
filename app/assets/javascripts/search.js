@@ -22,10 +22,14 @@ function search(input) {
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, ReferenceError);
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
     } else { 
         alert("位置情報の取得に失敗しました。");
     }
+}
+
+function showError(e) {
+    console.log(e);
 }
 
 function showPosition(position) {
@@ -33,8 +37,10 @@ function showPosition(position) {
     let data = position.coords;
     location.lat = data.latitude;
     location.lng = data.longitude;
+    console.log(location)
 
-    findCafes(location);
+    // findCafes(location);
+    initMap(location);
 
 }
 
@@ -53,18 +59,67 @@ function findCafes(position) {
     //     console.log("error");
     // })
 
-    fetch(endpoint, {
-        mode: 'no-cors',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-    })
-    .then(showResult);
+    // $.ajax({
+    //     url: endpoint,
+    //     type: "GET",
+    //     crossDomain: true,
+    //     xhrFields: {
+    //       withCredentials: true
+    //     }
+    //   })
+    //   .done(perseJSON)
+    //   .done(showResult)
+    // .fail(function() {
+    //     console.log("error");
+    // })
+
+    // fetch(endpoint, {
+    //     mode: 'cors',
+    //     credentials: 'include',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Accept': 'application/json'
+    //     }
+    // })
+    // .then(showResult);
+
+
 }
 
 function showResult(data) {
     console.log('showResult');
     console.log(data);
 }
+
+function initMap(position) {
+    var mapCenter = new google.maps.LatLng(position.lat,position.lng);
+  
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: mapCenter,
+      zoom: 15
+    });
+  
+    // var request = {
+    //   query: 'Museum of Contemporary Art Australia',
+    //   fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
+    // };
+
+    var request = {
+        location: position,
+        radius:1500,
+        type: ["cafe"],
+      };
+  
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, callback);
+  }
+  
+  function callback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        var place = results[i];
+        // createMarker(results[i]);
+        console.log(place);
+      }
+    }
+  }
