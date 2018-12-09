@@ -17,7 +17,7 @@
           %li= message
   = form.text_field :place_url, class: :hidden, id: :place_url
   = form.label :end_time, "何時まで滞在するか："
-  = form.datetime_field :end_time, min: ,minute_step: 15
+  = form.datetime_select :end_time, min: DateTime.now.strftime("%y-%m-%dT%H:%M:%S.000") ,minute_step: 15
   %br
   = form.label :detail, "詳細："
   %br

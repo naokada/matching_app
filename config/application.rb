@@ -13,6 +13,8 @@ module MatchingApp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
+    config.time_zone = 'Tokyo'
+
     config.x.cors_allowed_origins = ENV.fetch('CORS_ALLOWED_ORIGINS', 'https://maps.googleapis.com/*')
 
     config.middleware.insert_before 0, Rack::Cors do
