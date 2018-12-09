@@ -15,12 +15,18 @@
       %ul
         - proposal.errors.full_messages.each do |message|
           %li= message
-  = form.text_field :place_url, class: :hidden, id: :place_url
   = form.label :end_time, "何時まで滞在するか："
   = form.datetime_select :end_time, min: DateTime.now.strftime("%y-%m-%dT%H:%M:%S.000") ,minute_step: 15
   %br
   = form.label :detail, "詳細："
   %br
   = form.text_area :detail, rows: "6"
+
+  = fields_for :place, proposal do |place_form|
+    = place_form.text_field :place_url, class: :hiddene, id: :place_url
+    = place_form.text_field :name, class: :hiddene, id: :place_name
+    = place_form.text_field :position, class: :hiddene, id: :place_position
+    = place_form.text_field :image_url, class: :hiddene, id: :place_img
+
   .actions
     = form.submit

@@ -6,7 +6,7 @@ class ProposalsController < ApplicationController
   # GET /proposals.json
   def index
     @proposals = Proposal.where(end_time:Time.zone.now..(Date.today+1).end_of_day)
-    
+
   end
 
   # GET /proposals/1
@@ -19,6 +19,7 @@ class ProposalsController < ApplicationController
   def new
     # gon.maps_api = ENV['MAPS_KEY']
     @proposal = Proposal.new
+    @place = Place.new
   end
 
   # GET /proposals/1/edit
@@ -73,7 +74,10 @@ class ProposalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def proposal_params
-      params.require(:proposal).permit(:place_url, :detail, :end_time);
+      params.require(:proposal).permit(:detail, :end_time).merge(place_id: params[:place_id]);
+    end
+
+    def place_params
     end
 
     def set_env
