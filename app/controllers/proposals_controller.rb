@@ -5,7 +5,8 @@ class ProposalsController < ApplicationController
   # GET /proposals
   # GET /proposals.json
   def index
-    @proposals = Proposal.all
+    @proposals = Proposal.where(end_time:Time.zone.now..(Date.today+1).end_of_day)
+    
   end
 
   # GET /proposals/1
