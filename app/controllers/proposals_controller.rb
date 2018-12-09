@@ -14,6 +14,7 @@ class ProposalsController < ApplicationController
   end
 
   # GET /proposals/new
+  # TODO varidate date
   def new
     # gon.maps_api = ENV['MAPS_KEY']
     @proposal = Proposal.new
@@ -71,7 +72,7 @@ class ProposalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def proposal_params
-      params.fetch(:proposal, {})
+      params.require(:proposal).permit(:place_url, :detail, :end_time);
     end
 
     def set_env

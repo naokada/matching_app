@@ -7,17 +7,17 @@ $(function() {
     })
 })
 
-function search(input) {
-    let url = "https://api.gnavi.co.jp/RestSearchAPI/v3/";
-    let params = {
-        keyid: ENV["GURUNABI_KEY"],
-        format: 'json',
-        latitude: 35.670083,
-        longitude: 139.763267,
-        range: 1
-    };
-    let endpoint = url + GURUNABI_KEY + "" + input;
-}
+// function search(input) {
+//     let url = "https://api.gnavi.co.jp/RestSearchAPI/v3/";
+//     let params = {
+//         keyid: ENV["GURUNABI_KEY"],
+//         format: 'json',
+//         latitude: 35.670083,
+//         longitude: 139.763267,
+//         range: 1
+//     };
+//     let endpoint = url + GURUNABI_KEY + "" + input;
+// }
 
 
 function getLocation() {
@@ -37,67 +37,61 @@ function showPosition(position) {
     let data = position.coords;
     location.lat = data.latitude;
     location.lng = data.longitude;
-    console.log(location)
+    console.log(location);
 
-    // findCafes(location);
-    initMap(location);
-
-}
-
-function findCafes(position) {
-    let base_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
-    let location = "location=" + position.lat + "," + position.lng + "&radius=1500";
-    let type = "&type=cafe";
-    let key = "&key=" + gon.maps_api;
-    let endpoint = base_url + location + type + key;
-
-    // $.getJSON(endpoint, function(){
-    //     console.log( "success" );
-    // })
-    // .done(showResult)
-    // .fail(function() {
-    //     console.log("error");
-    // })
-
-    // $.ajax({
-    //     url: endpoint,
-    //     type: "GET",
-    //     crossDomain: true,
-    //     xhrFields: {
-    //       withCredentials: true
-    //     }
-    //   })
-    //   .done(perseJSON)
-    //   .done(showResult)
-    // .fail(function() {
-    //     console.log("error");
-    // })
-
-    // fetch(endpoint, {
-    //     mode: 'cors',
-    //     credentials: 'include',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Accept': 'application/json'
-    //     }
-    // })
-    // .then(showResult);
-
+    findCafes(location);
 
 }
+
+// function findCafes(position) {
+//     let base_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
+//     let location = "location=" + position.lat + "," + position.lng + "&radius=1500";
+//     let type = "&type=cafe";
+//     let key = "&key=" + gon.maps_api;
+//     let endpoint = base_url + location + type + key;
+
+//     // $.getJSON(endpoint, function(){
+//     //     console.log( "success" );
+//     // })
+//     // .done(showResult)
+//     // .fail(function() {
+//     //     console.log("error");
+//     // })
+
+//     // $.ajax({
+//     //     url: endpoint,
+//     //     type: "GET",
+//     //     crossDomain: true,
+//     //     xhrFields: {
+//     //       withCredentials: true
+//     //     }
+//     //   })
+//     //   .done(perseJSON)
+//     //   .done(showResult)
+//     // .fail(function() {
+//     //     console.log("error");
+//     // })
+
+//     // fetch(endpoint, {
+//     //     mode: 'cors',
+//     //     credentials: 'include',
+//     //     headers: {
+//     //         'Content-Type': 'application/json',
+//     //         'Accept': 'application/json'
+//     //     }
+//     // })
+//     // .then(showResult);
+
+
+// }
 
 function showResult(data) {
     console.log('showResult');
     console.log(data);
 }
 
-function initMap(position) {
-    var mapCenter = new google.maps.LatLng(position.lat,position.lng);
-  
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: mapCenter,
-      zoom: 15
-    });
+function findCafes(position) {
+    console.log("findCafes");
   
     // var request = {
     //   query: 'Museum of Contemporary Art Australia',
@@ -119,7 +113,28 @@ function initMap(position) {
       for (var i = 0; i < results.length; i++) {
         var place = results[i];
         // createMarker(results[i]);
-        console.log(place);
+         console.log(place);
+        if (i < 6) {
+            appendStoreHTML(place);
+        }
       }
     }
+  }
+
+  function appendStoreHTML(place) {
+    let div = document.createElement("div");
+    let photo = document.createElement("img");
+    photo.src = place.photos[0].getUrl({maxWidth: 640});
+    console.log(photo);
+    let h3 = document.createElement("div");
+    div.dataset.id = place.place_id;
+    h3.innerHTML = place.name;
+    div.appendChild(photo);
+    div.appendChild(h3);
+
+    div.addEventListener("click", function() {
+        console.log($(this).data('id'));
+        $("#place_url").val($(this).data('id'));
+    });
+    $("#store_list").append(div);
   }

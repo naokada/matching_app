@@ -1,10 +1,12 @@
+= javascript_include_tag 'search.js'
+
 #store_search
   %label お店を検索する
   %input(type="text" placeholder="お店の名前" id="store_search__input")/
-
+  #map
 #store_list.flex
 
-= form_with(model: proposal, local: true) do |form|
+= form_with(model: proposal, local: true, class: "form_wrapper") do |form|
   - if proposal.errors.any?
     #error_explanation
       %h2
@@ -13,5 +15,12 @@
       %ul
         - proposal.errors.full_messages.each do |message|
           %li= message
+  = form.text_field :place_url, class: :hidden, id: :place_url
+  = form.label :end_time, "何時まで滞在するか："
+  = form.datetime_field :end_time, min: ,minute_step: 15
+  %br
+  = form.label :detail, "詳細："
+  %br
+  = form.text_area :detail, rows: "6"
   .actions
     = form.submit

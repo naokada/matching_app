@@ -1,13 +1,28 @@
-p, a, h1, h2, label {
+html, p, a, h1, h2, h3, label {
     font-family: $text_font;
     font-weight: lighter;
     color: $dark;
+    text-align:center;
 }
 
-h1, h2 {
+h1, h2, h3 {
     text-align: center;
+}
+
+body {
+    background-color: $cream_white;
 }
 
 #content_wrapper {
     margin: 70px;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
 }

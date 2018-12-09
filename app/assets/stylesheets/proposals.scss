@@ -17,3 +17,27 @@
     }
 }
 
+#store_list {
+    > div {
+        width: 150px;
+        height: 170px;
+        background-color: $blue;
+        color: $cream_white;
+        margin: 20px;
+        text-align:center;
+        font-size:10pt;
+        cursor: grab;
+        img {
+            width: 150px;
+            height: 100px;
+            margin: 0 auto;
+            object-fit: cover;
+        }
+    }
+}
+
+.form_wrapper {
+    textarea{
+        width: 80%;
+    }
+}

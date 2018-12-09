@@ -80,3 +80,5 @@ gem 'gon'
 
 # Protect from invalid access
 gem 'rack-cors', require: 'rack/cors'
+
+gem 'normalize-rails'
