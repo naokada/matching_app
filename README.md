@@ -1,24 +1,67 @@
-# README
+# DB設計
+## Proposals table
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+| Column   | Type     | Options  |
+| -------- | -------- | -------- |
+| detail   | Text     |          |
+| end_time | Datetime | null:false |
+| place_id | integer  | null:false, foreign_key: true|
 
-Things you may want to cover:
+### Association
+has_one :place 
+belongs_to :user
 
-* Ruby version
 
-* System dependencies
+## Places table
 
-* Configuration
+| Column   | Type     | Options  |
+| -------- | -------- | -------- |
+| name     | String   |          |
+| place_url | Text    | null:false |
+| image_url | Text    |          |
+| position | position | null:false |
 
-* Database creation
+### Associaltion
+has_one :proposal
 
-* Database initialization
+## users table
+| Column   | Type     | Options  |
+| -------- | -------- | -------- |
+| nickname  | string   | null:false |
+| name  | string   | unique:true, null: false |
+| gender | string |          | detail | text   |      | 
 
-* How to run the test suite
+### Associaltion
+has_many :proposals
 
-* Services (job queues, cache servers, search engines, etc.)
+## rooms table
+| Column   | Type     | Options  |
+| -------- | -------- | -------- |
 
-* Deployment instructions
+### Associaltion
+has_many :users, through: :rooms_users
+has_many :messages
+has_many :rooms_users
 
-* ...
+## rooms_users table
+| Column   | Type     | Options  |
+| -------- | -------- | -------- |
+| user_id  | integer  | null:false, foreign_key: true|
+| room_id  | integer  | null:false, foreign_key: true|
+
+### Associaltion
+belongs_to :user
+belongs_to :room
+
+## messages table
+| Column   | Type     | Options  |
+| -------- | -------- | -------- |
+| body     | text     | |
+| image    | string   | |
+| user_id  | integer  | null:false, foreign_key: true|
+| room_id  | integer  | null:false, foreign_key: true|
+
+### Associaltion
+belongs_to :user
+belongs_to :room
+
