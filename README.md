@@ -20,9 +20,10 @@ belongs_to :user
 | place_url | Text    | null:false |
 | image_url | Text    |          |
 | position | position | null:false |
+| proposal_id | integer  |  foreign_key: true|
 
 ### Associaltion
-has_one :proposal
+belongs_to :proposal
 
 ## users table
 | Column   | Type     | Options  |
@@ -63,5 +64,14 @@ belongs_to :room
 
 ### Associaltion
 belongs_to :user
-belongs_to :room
+belongs_to
+
+
+# TODO
+- [ ] フォーム画面で、どのカフェを選んだかわかるようにする
+- [ ] カフェ検索機能
+- [ ] 現在地の正確さ
+- [ ] 提案一覧をマップで示す
+- [ ] ユーザー機能
+- [ ] 一覧の見た目編集
 
