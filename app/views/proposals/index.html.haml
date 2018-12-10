@@ -4,12 +4,11 @@
   %thead
     %tr
       %th{:colspan => "3"}
-  %tbody
+  #proposal_list
     - @proposals.each do |proposal|
-      %tr
-        %td= link_to 'Show', proposal
-        %td= link_to 'Edit', edit_proposal_path(proposal)
-        %td= link_to 'Destroy', proposal, method: :delete, data: { confirm: 'Are you sure?' }
+      %div{id: "proposal#{proposal.id}"}
+        = image_tag proposal.place.image_url, alt: proposal.place.name
+        %h4 #{proposal.place.name}
 %br/
 .new_btn
   = link_to '席をシェアする', new_proposal_path

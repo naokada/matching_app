@@ -82,3 +82,6 @@ gem 'gon'
 gem 'rack-cors', require: 'rack/cors'
 
 gem 'normalize-rails'
+
+# Support position datatype in ActiveRecord
+gem 'mysql_point'

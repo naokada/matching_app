@@ -22,7 +22,6 @@
         width: 150px;
         height: 170px;
         background-color: $blue;
-        color: $cream_white;
         margin: 20px;
         text-align:center;
         font-size:10pt;
@@ -32,6 +31,10 @@
             height: 100px;
             margin: 0 auto;
             object-fit: cover;
+        }
+        h4 {
+            color: $cream_white;
+            margin-top: 0px;
         }
     }
 }

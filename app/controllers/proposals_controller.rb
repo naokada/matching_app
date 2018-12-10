@@ -6,7 +6,6 @@ class ProposalsController < ApplicationController
   # GET /proposals.json
   def index
     @proposals = Proposal.where(end_time:Time.zone.now..(Date.today+1).end_of_day)
-
   end
 
   # GET /proposals/1
@@ -29,10 +28,11 @@ class ProposalsController < ApplicationController
   # POST /proposals
   # POST /proposals.json
   def create
+    @place = Place.create(place_params)
     @proposal = Proposal.new(proposal_params)
 
     respond_to do |format|
-      if @proposal.save
+      if @proposal.save && @place.update(proposal_id: @proposal.id)
         format.html { redirect_to @proposal, notice: 'Proposal was successfully created.' }
         format.json { render :show, status: :created, location: @proposal }
       else
@@ -74,10 +74,12 @@ class ProposalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def proposal_params
-      params.require(:proposal).permit(:detail, :end_time).merge(place_id: params[:place_id]);
+      params.require(:proposal).permit(:detail, :end_time);
     end
 
     def place_params
+      # binding.pry
+      params.require(:place).permit(:name, :place_url, :point, :image_url);
     end
 
     def set_env

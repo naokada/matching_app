@@ -1,23 +1,10 @@
 $(function() {
-    console.log("loaded");
     getLocation();
     let input = $("#store_search__input");
     input.on('input', function(e) {
         let val = input.val();
     })
 })
-
-// function search(input) {
-//     let url = "https://api.gnavi.co.jp/RestSearchAPI/v3/";
-//     let params = {
-//         keyid: ENV["GURUNABI_KEY"],
-//         format: 'json',
-//         latitude: 35.670083,
-//         longitude: 139.763267,
-//         range: 1
-//     };
-//     let endpoint = url + GURUNABI_KEY + "" + input;
-// }
 
 
 function getLocation() {
@@ -91,8 +78,6 @@ function showResult(data) {
 }
 
 function findCafes(position) {
-    console.log("findCafes");
-  
     // var request = {
     //   query: 'Museum of Contemporary Art Australia',
     //   fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
@@ -126,15 +111,19 @@ function findCafes(position) {
     let photo = document.createElement("img");
     photo.src = place.photos[0].getUrl({maxWidth: 640});
     console.log(photo);
-    let h3 = document.createElement("div");
+    let h4 = document.createElement("h4");
     div.dataset.id = place.place_id;
-    h3.innerHTML = place.name;
+    div.dataset.lng = place.geometry.viewport.j.j;
+    div.dataset.lat = place.geometry.viewport.l.j;
+    h4.innerHTML = place.name;
     div.appendChild(photo);
-    div.appendChild(h3);
+    div.appendChild(h4);
 
     div.addEventListener("click", function() {
-        console.log($(this).data('id'));
         $("#place_url").val($(this).data('id'));
+        $("#place_name").val($("h4", this).text());
+        $("#place_img").val($(this).children("img").attr("src"));
+        $("#place_position").val("POINT(" + $(this).data('lng') + " " + $(this).data('lat') + ")");
     });
     $("#store_list").append(div);
   }
