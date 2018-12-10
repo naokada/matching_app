@@ -1,10 +1,11 @@
 class ProposalsController < ApplicationController
   before_action :set_proposal, only: [:show, :edit, :update, :destroy]
+  before_action :set_env, only: [:new, :create, :index, :show, :edit, :update]
 
   # GET /proposals
   # GET /proposals.json
   def index
-    @proposals = Proposal.all
+    @proposals = Proposal.where(end_time:Time.zone.now..(Date.today+1).end_of_day)
   end
 
   # GET /proposals/1
@@ -13,8 +14,11 @@ class ProposalsController < ApplicationController
   end
 
   # GET /proposals/new
+  # TODO varidate date
   def new
+    # gon.maps_api = ENV['MAPS_KEY']
     @proposal = Proposal.new
+    @place = Place.new
   end
 
   # GET /proposals/1/edit
@@ -24,10 +28,11 @@ class ProposalsController < ApplicationController
   # POST /proposals
   # POST /proposals.json
   def create
+    @place = Place.create(place_params)
     @proposal = Proposal.new(proposal_params)
 
     respond_to do |format|
-      if @proposal.save
+      if @proposal.save && @place.update(proposal_id: @proposal.id)
         format.html { redirect_to @proposal, notice: 'Proposal was successfully created.' }
         format.json { render :show, status: :created, location: @proposal }
       else
@@ -69,6 +74,16 @@ class ProposalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def proposal_params
-      params.fetch(:proposal, {})
+      params.require(:proposal).permit(:detail, :end_time);
+    end
+
+    def place_params
+      # binding.pry
+      params.require(:place).permit(:name, :place_url, :point, :image_url);
+    end
+
+    def set_env
+      gon.maps_api = ENV['MAPS_KEY']
+      headers['Access-Control-Allow-Origin'] = 'https://maps.googleapis.com/*'
     end
 end
