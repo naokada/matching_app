@@ -87,3 +87,6 @@ gem 'normalize-rails'
 gem 'mysql_point'
 
 gem 'devise'
+
+gem 'haml-rails'
+
