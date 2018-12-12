@@ -113,8 +113,8 @@ function findCafes(position) {
     console.log(photo);
     let h4 = document.createElement("h4");
     div.dataset.id = place.place_id;
-    div.dataset.lng = place.geometry.viewport.j.j;
-    div.dataset.lat = place.geometry.viewport.l.j;
+    div.dataset.lng = place.geometry.viewport.ea.j;
+    div.dataset.lat = place.geometry.viewport.la.j;
     h4.innerHTML = place.name;
     div.appendChild(photo);
     div.appendChild(h4);
