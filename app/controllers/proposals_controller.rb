@@ -1,4 +1,5 @@
 class ProposalsController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
   before_action :set_proposal, only: [:show, :edit, :update, :destroy]
   before_action :set_env, only: [:new, :create, :index, :show, :edit, :update]
 
@@ -6,6 +7,8 @@ class ProposalsController < ApplicationController
   # GET /proposals.json
   def index
     @proposals = Proposal.where(end_time:Time.zone.now..(Date.today+1).end_of_day)
+
+    # binding.pry
   end
 
   # GET /proposals/1
@@ -30,6 +33,7 @@ class ProposalsController < ApplicationController
   def create
     @place = Place.create(place_params)
     @proposal = Proposal.new(proposal_params)
+    # binding.pry
 
     respond_to do |format|
       if @proposal.save && @place.update(proposal_id: @proposal.id)

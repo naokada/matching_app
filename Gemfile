@@ -85,3 +85,8 @@ gem 'normalize-rails'
 
 # Support position datatype in ActiveRecord
 gem 'mysql_point'
+
+gem 'devise'
+
+gem 'haml-rails'
+

@@ -9,12 +9,16 @@ header {
     position:fixed;
     width: 100%;
     top: 0;
+    a {
+        float: right;
+    }
 }
 #app_title {
     text-align: center;
     color: $cream_white;
     line-height: 80px;
-    margin:0;
+    margin:0 auto;
     font-family: $title_eng_font;
     font-weight: lighter;
+    width: 320px;
 }
